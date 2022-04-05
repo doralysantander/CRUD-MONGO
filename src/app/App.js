@@ -6,7 +6,8 @@ class App extends Component{
         //cuando comience la aplicacion los datos en blanco
         this.state = {
             title: '',
-            description: ''
+            description: '',
+            tasks:[]
         };
         this.handleChange = this.handleChange.bind(this);
         this.addTask = this.addTask.bind(this);
@@ -28,10 +29,48 @@ class App extends Component{
             M.toast({html:'Task saved'});//mensaje por pantalla con materialize
             //limpiar formulario 
             this.setState({title: '', description: ''});
+            this.fetchTasks();
         })
         .catch(err => console.error(err));
         //console.log(this.state);
         e.preventDefault();
+    }
+    // este componente es para que apenas  la aplicacion este montada  utilice le evento llamado fetchTasks
+    componentDidMount() {
+        //console.log('el componente fue montado');
+        this.fetchTasks();
+    }
+    //obtener tareas 
+    fetchTasks(){
+        //consulta al servidor
+        fetch('/api/tasks')
+        .then(res => res.json())
+        .then(data =>{
+            
+            this.setState({tasks: data});//cambia el estado de la aplicacion
+            console.log(this.state.tasks);
+        });
+
+    }
+    deleteTask(id){
+        if(confirm('are you sure you want to delete it?')){
+            // consulta a bd para eliminar
+        fetch(`/api/tasks/${id}`,{
+            method: 'DELETE', 
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            M.toast({html:'Task Deleted'});// mensaje 
+            this.fetchTasks();// carga los datos
+
+        }); 
+        }
+
     }
     //cada vez usuario tipea algo captura cambios
     // obtener cada input y sus valores
@@ -42,6 +81,7 @@ class App extends Component{
          [name]:value// aqui sera un title o description
      });
     }
+
 
     render(){
         return(
@@ -85,6 +125,39 @@ class App extends Component{
 
                         </div>
                         <div className="col s7">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Title </th>
+                                        <th>Description </th>
+                                          
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    { //recorrer cada una de tareas y por cada elemento retorno una fila
+                                        this.state.tasks.map(task =>{
+                                            return(
+                                                <tr key={task._id}>
+                                                    <td>{task.title}</td>
+                                                    <td>{task.description}</td>
+                                                    <td>
+                                                        <button className="btn light-blue darken-4" onClick={()=>this.deleteTask(task._id)}>
+                                                           <i className="material-icons">delete</i>
+
+                                                        </button>
+                                                        <button className="btn light-blue darken-4"style={{margin: '4px'}}>
+                                                        <i className="material-icons">edit</i>
+
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            )
+
+                                        })
+                                    }
+
+                                </tbody>
+                            </table>
 
                         </div>
 
