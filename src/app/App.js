@@ -8,12 +8,41 @@ class App extends Component{
             title: '',
             description: ''
         };
+        this.handleChange = this.handleChange.bind(this);
         this.addTask = this.addTask.bind(this);
     }
     addTask(e){
-        console.log(this.state);
+        //enviar los datos fetch envia una peticion al servidor
+        fetch('/api/tasks', {
+            method: 'POST',
+            body: JSON.stringify(this.state),//le envia el estado 
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        //cuando responda quiero ver por consola
+        .then(res =>res.json())//mirar el mensaje que el servidor esta dando
+        .then(data => {
+            console.log(data)
+            M.toast({html:'Task saved'});//mensaje por pantalla con materialize
+            //limpiar formulario 
+            this.setState({title: '', description: ''});
+        })
+        .catch(err => console.error(err));
+        //console.log(this.state);
         e.preventDefault();
     }
+    //cada vez usuario tipea algo captura cambios
+    // obtener cada input y sus valores
+    handleChange(e){
+        //destructuring
+     const {name, value} = e.target;
+     this.setState({
+         [name]:value// aqui sera un title o description
+     });
+    }
+
     render(){
         return(
             <div>
@@ -31,7 +60,7 @@ class App extends Component{
                                   <form onSubmit={this.addTask}>
                                       < div className="row">
                                           <div className="input-field col s12">
-                                              <input type="text" placeholder="Task title"/>
+                                              <input name="title" onChange={this.handleChange} type="text" placeholder="Task Title" value={this.state.title}/>
 
                                           </div>
 
@@ -39,7 +68,7 @@ class App extends Component{
 
                                       < div className="row">
                                           <div className="input-field col s12">
-                                              <textarea placeholder="Task Description" className="materialize-textarea"></textarea>
+                                              <textarea name="description" onChange={this.handleChange} placeholder="Task Description" className="materialize-textarea" value={this.state.description}></textarea>
 
                                           </div>
 
