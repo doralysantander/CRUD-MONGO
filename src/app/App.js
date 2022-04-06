@@ -7,13 +7,33 @@ class App extends Component{
         this.state = {
             title: '',
             description: '',
-            tasks:[]
+            tasks:[],
+            _id:''
         };
         this.handleChange = this.handleChange.bind(this);
         this.addTask = this.addTask.bind(this);
     }
     addTask(e){
-        //enviar los datos fetch envia una peticion al servidor
+       if(this.state._id)// si existe id hago peticion 
+       {// peticion de actualizacion al servidor pasandole el id
+            fetch(`/api/tasks/${this.state._id}`, {
+               method: 'PUT',
+               body:JSON.stringify(this.state),
+               headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                M.toast({html: 'Task updated'});
+                //limpiar formulario
+                this.setState({title: '', description: '', _id: '' });
+                this.fetchTasks();
+            });
+       }else{
+            //enviar los datos fetch envia una peticion al servidor
         fetch('/api/tasks', {
             method: 'POST',
             body: JSON.stringify(this.state),//le envia el estado 
@@ -32,6 +52,7 @@ class App extends Component{
             this.fetchTasks();
         })
         .catch(err => console.error(err));
+       }
         //console.log(this.state);
         e.preventDefault();
     }
@@ -70,6 +91,25 @@ class App extends Component{
 
         }); 
         }
+
+    }
+    editTask(id){
+        
+        //consulta bd
+        fetch(`/api/tasks/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            // actualizar datos 
+            this.setState({
+                title: data.title, 
+                description: data.description,
+                _id: data._id
+
+            })
+
+        });
+            
 
     }
     //cada vez usuario tipea algo captura cambios
@@ -145,7 +185,7 @@ class App extends Component{
                                                            <i className="material-icons">delete</i>
 
                                                         </button>
-                                                        <button className="btn light-blue darken-4"style={{margin: '4px'}}>
+                                                        <button onClick={()=>this.editTask(task._id)} className="btn light-blue darken-4"style={{margin: '4px'}}>
                                                         <i className="material-icons">edit</i>
 
                                                         </button>
