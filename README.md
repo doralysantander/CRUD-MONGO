@@ -1,7 +1,7 @@
 # CRUD-MONGO
 
 
-### Hi, Welcome to Crud Mongo 👋 💻 🤓 🖥
+### Hi, Welcome to Crud Mongo 👋 💻🖥
 
 <h2>PROYECTO CRUD FRONTEND Y BACKEND</h2>
 <h2>Contexto del Proyecto </h2>
