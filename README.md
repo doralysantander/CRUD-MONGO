@@ -17,7 +17,7 @@
 
 <h2> 💻•👩  </h2>
 
-- 🎓 &nbsp; Doraly Santander.
+- 🎓 &nbsp; Doraly Santander Chamorro.
 
 <h3>🛠 Stack 🛠 </h3>
 
