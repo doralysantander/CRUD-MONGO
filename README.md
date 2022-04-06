@@ -32,3 +32,6 @@
 
 
 ![Captura de pantalla de 2022-04-05 21-42-56](https://user-images.githubusercontent.com/86391179/161888046-e4ed3500-3bee-4436-8b73-e26c6a94eee7.jpg)
+
+![Captura de pantalla de 2022-04-05 22-31-29](https://user-images.githubusercontent.com/86391179/161890501-41f90459-3d6a-4355-930a-bf1b823f4b9c.png)
+g)
