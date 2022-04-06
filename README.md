@@ -3,8 +3,12 @@
 
 ### Hi, Welcome to Crud Mongo 👋 💻 🤓 🖥
 ### To-Do-List Mongo
+<h2>PROYECTO CRUD FRONTEND Y BACKEND</h2>
+<h2>Contexto del Proyecto </h2>
+- 🌐 Se pueden agregar tareas nuevas.
+- 🌐 se pueden editar las tareas.
+- 🌐  Se pueden eliminar tareas.
 
-<p>Desarrollar una aplicación "CRUD" Web en PHP que permita pedir cita a los desarrolladores y equipos para solucionar problemas técnicos con la ayuda del formador o CTO.</p>
 
 
 
