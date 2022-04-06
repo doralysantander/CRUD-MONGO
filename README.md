@@ -15,9 +15,8 @@
 <p><em> EducaMas -> <a href="https://educamas.com.co/"> EducaMas - Programate</a>, Regional. 💻 </br>
 </em></p>
 
-<h2> 💻•👩  </h2>
 
-- 🎓 &nbsp; Doraly Santander Chamorro.
+- 🎓 &nbsp;  👩 Doraly Santander Chamorro.
 
 <h3>🛠 Stack 🛠 </h3>
 
